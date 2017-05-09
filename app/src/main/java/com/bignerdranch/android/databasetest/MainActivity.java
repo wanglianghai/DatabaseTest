@@ -5,16 +5,21 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.bignerdranch.android.databasetest.BookSchemaDb.BookTable;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+    private final String TAG = "MainActivity";
     private Button mButtonCreateDatabase;
     private Button mButtonAddBook;
     private Button mButtonUpdateBook;
     private Button mButtonDelete;
+    private Button mButtonQuery;
     private SQLiteDatabase mDatabase;
 
     @Override
@@ -58,6 +63,18 @@ public class MainActivity extends AppCompatActivity {
                 String selection = BookTable.Cols.PAGES + " < ? ";
                 String[] selectionArgs = { "500" };
                 Book.delete(selection, selectionArgs, mDatabase);
+            }
+        });
+
+        mButtonQuery = (Button) findViewById(R.id.query_book);
+        mButtonQuery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<Book> books = Book.getBooks(mDatabase);
+                for (Book b:
+                     books) {
+                    Log.i(TAG, "onClick: " + b.getStringName());
+                }
             }
         });
     }

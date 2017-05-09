@@ -2,9 +2,14 @@ package com.bignerdranch.android.databasetest;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.CursorWrapper;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.bignerdranch.android.databasetest.BookSchemaDb.BookTable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/5/9/009.
@@ -49,6 +54,43 @@ public class Book {
 
     public static void delete(String selection, String[] selectionArgs, SQLiteDatabase db) {
         db.delete(BookTable.NAME, selection, selectionArgs);
+    }
+
+    private static BookCursorWrapper query(SQLiteDatabase db) {
+// Define a projection that specifies which columns from the database
+// you will actually use after this query.
+// Filter results WHERE "title" = 'My Title'
+        String selection = BookTable.Cols.NAME + " = ? ";
+        String[] selectionArgs = { "The Da Vin Code" };
+
+// How you want the results sorted in the resulting Cursor
+        Cursor c = db.query(
+                BookTable.NAME,                     // The table to query
+                null,                               // The columns to return
+                selection,                                // The columns for the WHERE clause
+                selectionArgs,                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                null                                 // The sort order
+        );
+
+        return new  BookCursorWrapper(c);
+    }
+
+    public static List<Book> getBooks(SQLiteDatabase db) {
+        List<Book> books = new ArrayList<>();
+        BookCursorWrapper c = query(db);
+        try {
+            c.moveToFirst();
+            while (!c.isAfterLast()) {
+                books.add(c.getBook());
+                c.moveToNext();
+            }
+        } finally {
+            c.close();
+        }
+
+        return books;
     }
 
     public String getStringName() {
