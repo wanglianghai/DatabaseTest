@@ -6,6 +6,14 @@ package com.bignerdranch.android.databasetest;
 
 public final class BookSchemaDb {
     private BookSchemaDb(){}
+    public static final class CategoryTable {
+        public static final String NAME = "Category";
+
+        public static final class Cols {
+            public static final String CATEGORY_NAME = "category_name";
+            public static final String CATEGORY_CODE = "category_code";
+        }
+    }
     public static final class BookTable {
         public static final String NAME = "Book";
 
