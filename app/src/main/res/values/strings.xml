@@ -3,4 +3,5 @@
     <string name="create_database">create database</string>
     <string name="add_book">add book</string>
     <string name="update_book">update book</string>
+    <string name="delete_book">delete book</string>
 </resources>

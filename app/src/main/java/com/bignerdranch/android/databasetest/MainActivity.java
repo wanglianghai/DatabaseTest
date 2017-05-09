@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mButtonCreateDatabase;
     private Button mButtonAddBook;
     private Button mButtonUpdateBook;
+    private Button mButtonDelete;
     private SQLiteDatabase mDatabase;
 
     @Override
@@ -47,6 +48,16 @@ public class MainActivity extends AppCompatActivity {
                 String selection = BookTable.Cols.NAME + " = ?";
                 String[] selectionArgs = { "The Da Vin Code" };
                 book.update(book, selection, selectionArgs, mDatabase);
+            }
+        });
+
+        mButtonDelete = (Button) findViewById(R.id.delete_book);
+        mButtonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String selection = BookTable.Cols.PAGES + " < ? ";
+                String[] selectionArgs = { "500" };
+                Book.delete(selection, selectionArgs, mDatabase);
             }
         });
     }

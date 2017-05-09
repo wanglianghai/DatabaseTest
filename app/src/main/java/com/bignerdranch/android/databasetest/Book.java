@@ -15,12 +15,21 @@ public class Book {
     private String mStringAuthor;
     private int mIntPages;
     private float mFloatPrice;
+    private SQLiteDatabase mDatabase;
 
     public Book(String stringName, String stringAuthor, int intPages, float floatPrice) {
         mStringName = stringName;
         mStringAuthor = stringAuthor;
         mIntPages = intPages;
         mFloatPrice = floatPrice;
+    }
+
+    public Book(String stringName, String stringAuthor, int intPages, float floatPrice, Context context) {
+        mStringName = stringName;
+        mStringAuthor = stringAuthor;
+        mIntPages = intPages;
+        mFloatPrice = floatPrice;
+        mDatabase = new MyDatabaseHelper(context).getWritableDatabase();
     }
 
     public static ContentValues getContentValue(Book book) {
@@ -36,6 +45,10 @@ public class Book {
         // Which row to update, based on the title
         ContentValues values = getContentValue(book);
         db.update(BookTable.NAME, values, selection, selectionArgs);
+    }
+
+    public static void delete(String selection, String[] selectionArgs, SQLiteDatabase db) {
+        db.delete(BookTable.NAME, selection, selectionArgs);
     }
 
     public String getStringName() {
