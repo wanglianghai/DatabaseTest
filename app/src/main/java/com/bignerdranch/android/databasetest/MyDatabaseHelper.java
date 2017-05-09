@@ -24,7 +24,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             + "id integer primary key autoincrement, "
             + CategoryTable.Cols.CATEGORY_CODE + " integer, "
             + CategoryTable.Cols.CATEGORY_NAME + " text)";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String SQL_DELETE_BOOK =
             "DROP TABLE IF EXISTS " + BookTable.NAME;
     private static final String SQL_DELETE_CATEGORY =
@@ -42,6 +42,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_BOOK);
         db.execSQL(CREATE_CATEGORY);
+        Book book = new Book("The Da Vin Cook", "Dan red", 555, 16.96f);
+        db.insert(BookSchemaDb.BookTable.NAME, null, Book.getContentValue(book));
         Toast.makeText(mContext, "Create database succeeded", Toast.LENGTH_SHORT).show();
     }
 
