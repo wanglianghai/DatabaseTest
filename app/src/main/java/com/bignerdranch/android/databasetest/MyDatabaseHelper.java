@@ -17,14 +17,14 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_BOOK = "create table " + BookTable.NAME + " ( "
             + "id integer primary key autoincrement, "
             + BookTable.Cols.AUTHOR + " text, "
-            + BookTable.Cols.PRICE + " real, "
+            + BookTable.Cols.PRICE + " float, "
             + BookTable.Cols.PAGES + " integer, "
             + BookTable.Cols.NAME + " text)";
     private static final String CREATE_CATEGORY = "create table " + CategoryTable.NAME + " ( "
             + "id integer primary key autoincrement, "
             + CategoryTable.Cols.CATEGORY_CODE + " integer, "
             + CategoryTable.Cols.CATEGORY_NAME + " text)";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 5;
     private static final String SQL_DELETE_BOOK =
             "DROP TABLE IF EXISTS " + BookTable.NAME;
     private static final String SQL_DELETE_CATEGORY =

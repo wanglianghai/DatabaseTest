@@ -1,6 +1,8 @@
 package com.bignerdranch.android.databasetest;
 
 import android.content.ContentValues;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 
 import com.bignerdranch.android.databasetest.BookSchemaDb.BookTable;
 
@@ -28,6 +30,12 @@ public class Book {
         contentValues.put(BookTable.Cols.PAGES, book.getFloatPrice());
         contentValues.put(BookTable.Cols.PAGES, book.getIntPages());
         return contentValues;
+    }
+
+    public void update(Book book, String selection, String[] selectionArgs, SQLiteDatabase db) {
+        // Which row to update, based on the title
+        ContentValues values = getContentValue(book);
+        db.update(BookTable.NAME, values, selection, selectionArgs);
     }
 
     public String getStringName() {

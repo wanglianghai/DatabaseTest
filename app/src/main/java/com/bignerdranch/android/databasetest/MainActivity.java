@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.bignerdranch.android.databasetest.BookSchemaDb.BookTable;
+
 public class MainActivity extends AppCompatActivity {
     private Button mButtonCreateDatabase;
     private Button mButtonAddBook;
@@ -32,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Book book = new Book("The Da Vin Code", "Dan Brown", 454, 16.96f);
-                mDatabase.insert(BookSchemaDb.BookTable.NAME, null, Book.getContentValue(book));
+                mDatabase.insert(BookTable.NAME, null, Book.getContentValue(book));
             }
         });
 
@@ -40,7 +42,11 @@ public class MainActivity extends AppCompatActivity {
         mButtonUpdateBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Book book = new Book("The Da Vin Code", "Dan Brown", 333, 10.96f);
+                // Which row to update, based on the title
+                String selection = BookTable.Cols.NAME + " = ?";
+                String[] selectionArgs = { "The Da Vin Code" };
+                book.update(book, selection, selectionArgs, mDatabase);
             }
         });
     }
