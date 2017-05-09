@@ -45,6 +45,16 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         Book book = new Book("The Da Vin Cook", "Dan red", 555, 16.96f);
         db.insert(BookSchemaDb.BookTable.NAME, null, Book.getContentValue(book));
         Toast.makeText(mContext, "Create database succeeded", Toast.LENGTH_SHORT).show();
+        //insert
+        //    db.execSQL("insert into Book (name, author, pages, price) values(?,?,?,?)",
+        //            new String[] {"The Da Vin Cook", "Dan red", "555", "16.96f"});
+
+        //update
+        //    db.execSQL("update Book set price = ? where name = ?", new String[]{"109f", "The Da Vin Cook"});
+        //delete
+        //    db.execSQL("delete from Book where pages > ?", new String[]{"500"});
+        //query
+        //db.rawQuery("select * from Book", null);
     }
 
     @Override
